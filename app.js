@@ -9,7 +9,7 @@ app.use(express.json());
 app.listen(3000, () => console.log("Listening on port 3000"));
 
 
-app.post("/sign-up", async (req, res) => {
+app.post("/", async (req, res) => {
     try{
         let user = new userModel(req.body);
         console.log(user);
@@ -103,8 +103,12 @@ app.patch("/", async(req, res) => {
 
 app.delete("/", async (req, res) => {
     try{
-        const result = await userModel.deleteOne(req.body);
+        // const result = await userModel.deleteOne(req.body);
+        // console.log(result);
+        // res.send("Done");
+        const result = await userModel.where(req.body).limit(1);
         console.log(result);
+        await result[0].delete();
         res.send("Done");
     }catch(err){
         console.log(err.message);

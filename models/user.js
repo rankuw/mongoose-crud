@@ -1,3 +1,4 @@
+const res = require("express/lib/response");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
@@ -25,6 +26,16 @@ const userSchema = new Schema({
     }
 });
 
+userSchema.pre('remove', { query: true, document: true }, async function (next) {
+    try{
+        console.log("Removing...");
+        console.log(this);
+        const result = await mongoose.models.userInfo.deleteOne({_id: this.userInfoId});
+        next();
+    }catch(err){
+        console.log(err.message + " tf");
+    }
+});
 
 const userModel = mongoose.model('user', userSchema);
 
