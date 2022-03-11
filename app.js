@@ -22,6 +22,7 @@ app.post("/", async (req, res) => {
                 console.log(user);
                 await user.populate("userInfoId");
                 console.log(user);
+                await user.validate();
                 await user.save();
                 console.log(user);
                 res.send(user);
