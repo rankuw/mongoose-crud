@@ -15,7 +15,7 @@ const userSchema = new Schema({
     userName: {
         type: String,
         required: true,
-        unique: true
+        unique: true //this won't work if we already have duplicate data in our database.
     },
     password: {
         type: String
